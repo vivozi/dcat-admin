@@ -28,7 +28,7 @@
     <a><img src="https://img.shields.io/badge/laravel-5.5+-59a9f8.svg?style=flat" ></a>
 </p>
 
-## 截图
+## Screenshots
 
 ![](https://cdn.learnku.com/uploads/images/202008/23/38389/Oam6CYOobf.jpeg!large)
 ![](https://cdn.learnku.com/uploads/images/202007/24/38389/35KJXfVXib.png!large)
