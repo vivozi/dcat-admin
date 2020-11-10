@@ -3,11 +3,11 @@
     <img src="https://cdn.learnku.com/uploads/images/202009/27/38389/WFQxJ7qZ1k.png!large" height="80"> 
 </div>
 <br>
-<p align="center"><code>Dcat Admin</code>是一个基于<a href="https://www.laravel-admin.org/" target="_blank">laravel-admin</a>Second development from the backend system builder, with very little code to quickly build a fully functional backend system of high value. Built with a wealth of common backend components, out of the box, allowing developers to say goodbye to redundant HTML code, very friendly to back-end developers.</p>
+<p align="center"><code>Dcat Admin</code> is based on <a href="https://www.laravel-admin.org/" target="_blank">laravel-admin</a> Second development from the backend system builder, with very little code to quickly build a fully functional backend system of high value. Built with a wealth of common backend components, out of the box, allowing developers to say goodbye to redundant HTML code, very friendly to back-end developers.</p>
 
 <p align="center">
 <a href="https://learnku.com/docs/dcat-admin/1.x">learnku文档</a> |
-<a href="http://www.dcatadmin.com/">文档</a> |
+<a href="http://www.dcatadmin.com/">Homepage</a> |
 <a href="http://103.39.211.179:8080/admin">Demo (Live)</a> |
 <a href="https://github.com/jqhph/dcat-admin-demo">Demo source code</a> |
 <a href="https://gitee.com/jqhph/dcat-admin-demo">Demo source code (Gitee)</a> |
