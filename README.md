@@ -3,7 +3,7 @@
     <img src="https://cdn.learnku.com/uploads/images/202009/27/38389/WFQxJ7qZ1k.png!large" height="80"> 
 </div>
 <br>
-<p align="center"><code>Dcat Admin</code> is based on <a href="https://www.laravel-admin.org/" target="_blank">laravel-admin</a>. Allows you to  to quickly build a fully functional backend system of high value with very little code. Built with a wealth of common backend components, out of the box, allowing developers to say goodbye to redundant HTML code, very friendly to back-end developers.</p>
+<p align="center"><code>Dcat Admin</code> is based on <a href="https://www.laravel-admin.org/" target="_blank">laravel-admin</a>. It allows you to  to quickly build a fully functional backend system of high value with very little code. Built with a wealth of common backend components, out of the box, allowing developers to say goodbye to redundant HTML code, very friendly to back-end developers.</p>
 
 <p align="center">
 <a href="https://learnku.com/docs/dcat-admin/1.x">learnku文档</a> |
