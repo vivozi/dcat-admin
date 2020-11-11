@@ -51,8 +51,9 @@ class DialogTable extends Widget
         $this->title($title);
         $this->from($table);
 
+        $this->elementClass = 'dialog-table-container';
+
         $this->class('dialog-table');
-        $this->id('dialog-table-'.Str::random(8));
     }
 
     /**
@@ -186,7 +187,6 @@ class DialogTable extends Widget
     public function render()
     {
         $this->addVariables([
-            'id'     => $this->id(),
             'title'  => $this->title,
             'width'  => $this->width,
             'button' => $this->renderButton(),
