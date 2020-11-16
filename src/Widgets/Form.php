@@ -11,7 +11,6 @@ use Dcat\Admin\Form\Concerns\HasLayout;
 use Dcat\Admin\Form\Concerns\HasRows;
 use Dcat\Admin\Form\Concerns\HasTabs;
 use Dcat\Admin\Form\Field;
-use Dcat\Admin\Form\Layout;
 use Dcat\Admin\Support\Helper;
 use Dcat\Admin\Traits\HasAuthorization;
 use Dcat\Admin\Traits\HasFormResponse;
@@ -71,7 +70,6 @@ use Illuminate\Validation\Validator;
  * @method Field\Image               image($column, $label = '')
  * @method Field\MultipleFile        multipleFile($column, $label = '')
  * @method Field\MultipleImage       multipleImage($column, $label = '')
- * @method Field\HasMany             hasMany($column, \Closure $callback)
  * @method Field\Tree                tree($column, $label = '')
  * @method Field\Table               table($column, $callback)
  * @method Field\ListField           list($column, $label = '')
@@ -434,14 +432,9 @@ class Form implements Renderable
         return $this;
     }
 
-    /**
-     * Disable form tag.
-     *
-     * @return $this;
-     */
-    public function disableFormTag()
+    public function useFormTag(bool $tag = true)
     {
-        $this->useFormTag = false;
+        $this->useFormTag = $tag;
 
         return $this;
     }
