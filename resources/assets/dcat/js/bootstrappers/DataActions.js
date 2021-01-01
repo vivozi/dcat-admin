@@ -27,6 +27,10 @@ let defaultActions = {
 
                         response.data.detail = msg;
 
+                        if (! response.then) {
+                            response.then = {action: 'redirect', value: redirect}
+                        }
+
                         Dcat.handleJsonResponse(response);
                     }
                 });
@@ -50,10 +54,14 @@ let defaultActions = {
                 Dcat.NP.start();
                 $.delete({
                     url: url + '/' + keys.join(','),
-                    success: function (data) {
+                    success: function (response) {
                         Dcat.NP.done();
 
-                        Dcat.handleJsonResponse(data);
+                        if (! response.then) {
+                            response.then = {action: 'refresh', value: true}
+                        }
+
+                        Dcat.handleJsonResponse(response);
                     }
                 });
             });

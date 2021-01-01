@@ -57,7 +57,7 @@ use Illuminate\Validation\Validator;
  * @method Field\SwitchField         switch($column, $label = '')
  * @method Field\Display             display($column, $label = '')
  * @method Field\Rate                rate($column, $label = '')
- * @method Field\Divide              divider()
+ * @method Field\Divide              divider(string $title = null)
  * @method Field\Password            password($column, $label = '')
  * @method Field\Decimal             decimal($column, $label = '')
  * @method Field\Html                html($html, $label = '')
@@ -162,6 +162,11 @@ class Form implements Renderable
      * @var array
      */
     protected $confirm = [];
+
+    /**
+     * @var bool
+     */
+    protected $validationErrorToastr = true;
 
     /**
      * Form constructor.
@@ -269,6 +274,20 @@ class Form implements Renderable
     }
 
     /**
+     * 设置使用 Toastr 展示字段验证信息.
+     *
+     * @param bool $value
+     *
+     * @return $this
+     */
+    public function validationErrorToastr(bool $value = true)
+    {
+        $this->validationErrorToastr = $value;
+
+        return $this;
+    }
+
+    /**
      * Set primary key.
      *
      * @param mixed $value
@@ -358,7 +377,11 @@ class Form implements Renderable
     {
         foreach ($this->fields as $field) {
             if (is_array($field->column())) {
-                return in_array($name, $field->column(), true) ? $field : null;
+                $result = in_array($name, $field->column(), true) || $field->column() === $name ? $field : null;
+
+                if ($result) {
+                    return $result;
+                }
             }
 
             if ($field === $name || $field->column() === $name) {
@@ -420,21 +443,33 @@ class Form implements Renderable
         return $messageBag;
     }
 
-    /**
-     * Disable Pjax.
-     *
-     * @return $this
-     */
-    public function disablePjax()
+    public function useFormTag(bool $tag = true)
     {
-        $this->forgetHtmlAttribute('pjax-container');
+        $this->useFormTag = $tag;
 
         return $this;
     }
 
-    public function useFormTag(bool $tag = true)
+    /**
+     * @param bool $value
+     *
+     * @return $this
+     */
+    public function submitButton(bool $value = true)
     {
-        $this->useFormTag = $tag;
+        $this->buttons['submit'] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param bool $value
+     *
+     * @return $this
+     */
+    public function resetButton(bool $value = true)
+    {
+        $this->buttons['reset'] = $value;
 
         return $this;
     }
@@ -448,9 +483,7 @@ class Form implements Renderable
      */
     public function disableResetButton(bool $value = true)
     {
-        $this->buttons['reset'] = ! $value;
-
-        return $this;
+        return $this->resetButton(! $value);
     }
 
     /**
@@ -462,9 +495,7 @@ class Form implements Renderable
      */
     public function disableSubmitButton(bool $value = true)
     {
-        $this->buttons['submit'] = ! $value;
-
-        return $this;
+        return $this->submitButton(! $value);
     }
 
     /**
@@ -578,27 +609,28 @@ class Form implements Renderable
             return;
         }
 
-        $buttons = '';
-
-        if (! empty($this->buttons['reset'])) {
-            $reset = trans('admin.reset');
-
-            $buttons .= "<button type=\"reset\" class=\"btn btn-white pull-left\"><i class=\"feather icon-rotate-ccw\"></i> {$reset}</button>";
-        }
-
-        if (! empty($this->buttons['submit'])) {
-            $submit = $this->getSubmitButtonLabel();
-
-            $buttons .= "<button type=\"submit\" class=\"btn btn-primary pull-right\"><i class=\"feather icon-save\"></i> {$submit}</button>";
-        }
-
         return <<<HTML
 <div class="box-footer row d-flex">
     <div class="col-md-2"> &nbsp;</div>
-
-    <div class="col-md-8">{$buttons}</div>
+    <div class="col-md-8">{$this->renderResetButton()}{$this->renderSubmitButton()}</div>
 </div>
 HTML;
+    }
+
+    protected function renderResetButton()
+    {
+        if (! empty($this->buttons['reset'])) {
+            $reset = trans('admin.reset');
+
+            return "<button type=\"reset\" class=\"btn btn-white pull-left\"><i class=\"feather icon-rotate-ccw\"></i> {$reset}</button>";
+        }
+    }
+
+    protected function renderSubmitButton()
+    {
+        if (! empty($this->buttons['submit'])) {
+            return "<button type=\"submit\" class=\"btn btn-primary pull-right\"><i class=\"feather icon-save\"></i> {$this->getSubmitButtonLabel()}</button>";
+        }
     }
 
     /**
@@ -628,7 +660,9 @@ HTML;
     public function fillFields(array $data)
     {
         foreach ($this->fields as $field) {
-            $field->fill($data);
+            if (! $field->hasAttribute(Field::BUILD_IGNORE)) {
+                $field->fill($data);
+            }
         }
     }
 
@@ -841,12 +875,14 @@ HTML;
     protected function addAjaxScript()
     {
         $confirm = admin_javascript_json($this->confirm);
+        $toastr = $this->validationErrorToastr ? 'true' : 'false';
 
         Admin::script(
             <<<JS
 $('#{$this->getElementId()}').form({
     validate: true,
     confirm: {$confirm},
+    validationErrorToastr: $toastr,
     success: function (data) {
         {$this->savedScript()}
     },

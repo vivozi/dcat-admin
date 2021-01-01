@@ -3,19 +3,8 @@
     <img src="https://cdn.learnku.com/uploads/images/202009/27/38389/WFQxJ7qZ1k.png!large" height="80"> 
 </div>
 <br>
-<p align="center"><code>Dcat Admin</code> is based on <a href="https://www.laravel-admin.org/" target="_blank">laravel-admin</a>. It allows you to  to quickly build a fully functional backend system of high value with very little code. Built with a wealth of common backend components, out of the box, allowing developers to say goodbye to redundant HTML code, very friendly to back-end developers.</p>
 
 <p align="center">
-<a href="https://learnku.com/docs/dcat-admin/1.x">learnku文档</a> |
-<a href="http://www.dcatadmin.com/">Homepage</a> |
-<a href="http://103.39.211.179:8080/admin">Demo (Live)</a> |
-<a href="https://github.com/jqhph/dcat-admin-demo">Demo source code</a> |
-<a href="https://gitee.com/jqhph/dcat-admin-demo">Demo source code (Gitee)</a> |
-<a href="#extensions">Extensions</a>
-</p>
-
-<p align="center">
-    <a href="https://github.com/jqhph/dcat-admin/blob/master/LICENSE"><a href="https://opencollective.com/dcat-admin" alt="Financial Contributors on Open Collective"><img src="https://opencollective.com/dcat-admin/all/badge.svg?label=financial+contributors" /></a> <img src="https://img.shields.io/badge/license-MIT-7389D8.svg?style=flat" ></a>
     <a href="https://travis-ci.org/jqhph/dcat-admin">
         <img src="https://travis-ci.org/jqhph/dcat-admin.svg?branch=master" alt="Build Status">
     </a>
@@ -28,7 +17,21 @@
     <a><img src="https://img.shields.io/badge/laravel-5.5+-59a9f8.svg?style=flat" ></a>
 </p>
 
-## Screenshots
+<p align=""><code>Dcat Admin</code>是一个基于<a href="https://www.laravel-admin.org/" target="_blank">laravel-admin</a>二次开发而成的后台系统构建工具，只需很少的代码即可快速构建出一个功能完善的高颜值后台系统。内置丰富的后台常用组件，开箱即用，让开发者告别冗杂的HTML代码，对后端开发者非常友好。</p>
+
+
+- [中文文档](https://learnku.com/docs/dcat-admin)
+- [English documentions](http://www.dcatadmin.com/docs/en-2.x/quick-start.html)
+- [Demo / 在线演示](http://103.39.211.179:8080/admin)
+- [Demo源码](https://github.com/jqhph/dcat-admin-demo)
+- [Demo源码 (码云)](https://gitee.com/jqhph/dcat-admin-demo)
+- [扩展](#)
+
+### 关于官网备案暂停访问的公告
+
+大家好，[Dcat Admin官网](http://www.dcatadmin.com)正在进行备案中，在备案期间会关闭网站访问，直至备案完成。在此期间大家可以通过[Learnku中文文档](https://learnku.com/docs/dcat-admin/2.x)查看文档，给大家带来的不便之处敬请谅解，谢谢支持！
+
+### 截图
 
 ![](https://cdn.learnku.com/uploads/images/202008/23/38389/Oam6CYOobf.jpeg!large)
 ![](https://cdn.learnku.com/uploads/images/202007/24/38389/35KJXfVXib.png!large)
@@ -37,51 +40,51 @@
 ![](https://cdn.learnku.com/uploads/images/202008/08/38389/lGYIdhifb5.jpg!large)
 
 
-## Features
+### 功能特性
 
-- [x] Simple, elegant, flexible and extensible APIs
-- [x] User management
-- [x] RBAC rights management, support for unlimited rights nodes
-- [x] Menu management
-- [x] using pjax to build refresh-free pages, support for ** load on demand ** static resources, can be infinitely expandable components without affecting overall performance
-- [x] Loosely coupled page building and data manipulation design with easy switching of data sources
-- [x] Custom pages
-- [x] Customize theme coloring
-- [x] Multi-themes switching function, built-in multiple theme colors
-- [x] Easily build standalone pages without a menu bar (e.g. for building pop-up selectors, etc.)
-- [x] Plug-in functionality
-- [x] Visual code generator to generate add/drop pages from data tables with one click
-- [x] Data table builder with a wealth of common table features (e.g. combobox headers, data export, search, quick creation, batch operations, etc.)
-- [x] Tree table feature builder with pagination and click-to-load support
-- [x] Data form builder with rich built-in form types and support for asynchronous form submission
-- [x] Step-by-step form builder
-- [x] Pop-up form builder
-- [x] Data detail page builder
-- [x] Infinite hierarchical tree page builder with drag-and-drop support for data hierarchy, sorting, etc.
-- [x] Rich set of frequently used page components (e.g. charts, statistics cards, drop-down menus, tab cards, hint tools, etc.) built in
-- [x] `Section` function (similar to `Filter` of `Wordpress` and `section` tab of `blade` template).
-- [x] Asynchronous file upload form, support block multi-threaded uploading
-- [x] Multi-application
-- [ ] Plug-in market, you can install, update and uninstall plug-ins with a single click of the mouse on the administration page.
+- [x] 简洁优雅、灵活可扩展的API
+- [x] 用户管理
+- [x] RBAC权限管理，支持无限极权限节点
+- [x] 菜单管理
+- [x] 使用pjax构建无刷新页面，支持**按需加载**静态资源，可以无限扩展组件而不影响整体性能
+- [x] 松耦合的页面构建与数据操作设计，可轻松切换数据源
+- [x] 自定义页面
+- [x] 自定义主题配色
+- [x] 多主题切换功能，内置多种主题色
+- [x] 可轻松构建无菜单栏的独立页面（如可用于构建弹窗选择器等功能）
+- [x] 插件功能
+- [x] 可视化代码生成器，可根据数据表一键生成增删改查页面
+- [x] 数据表格构建工具，内置丰富的表格常用功能（如组合表头、数据导出、搜索、快捷创建、批量操作等）
+- [x] 树状表格功能构建工具，支持分页和点击加载
+- [x] 数据表单构建工具，内置丰富的表单类型，支持表单异步提交
+- [x] 分步表单构建工具
+- [x] 弹窗表单构建工具
+- [x] 数据详情页构建工具
+- [x] 无限层级树状页面构建工具，支持用拖拽的方式实现数据的层级、排序等操作
+- [x] 内置丰富的常用页面组件（如图表、数据统计卡片、下拉菜单、Tab卡片、提示工具等）
+- [x] `Section`功能（类似`Wordpress`的`Filter`和`blade`模板的`section`标签）
+- [x] 异步文件上传表单，支持分块多线程上传
+- [x] 多应用
+- [ ] 插件市场，只需在管理页面轻轻点击鼠标即可完成插件的安装、更新和卸载等操作
 
 
-## Requirements
+### 环境
  - PHP >= 7.1.0
  - Laravel 5.5.0 ~ 8.*
  - Fileinfo PHP Extension
 
-## Installation
+### 安装
 
-> If `composer` downloads too slowly or fails to install, run the command `composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/`
+> 如果安装过程中出现`composer`下载过慢或安装失败的情况，请运行命令`composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/`把`composer`镜像更换为阿里云镜像。
 
-First, you need to install `laravel`. If you already have it installed, you can skip this step.
+首先需要安装`laravel`，如已安装可以跳过此步骤
 ```bash
-composer create-project --prefer-dist laravel/laravel ProjectName 7.*
-# or
-composer create-project --prefer-dist laravel/laravel ProjectName
+composer create-project --prefer-dist laravel/laravel 项目名称 7.*
+# 或
+composer create-project --prefer-dist laravel/laravel 项目名称
 ```
 
-After installing `laravel`, you will need to modify the `.env` file to set the database connection to the correct settings:
+安装完`laravel`之后需要修改`.env`文件，设置数据库连接设置正确
 
 ```dotenv
 DB_CONNECTION=mysql
@@ -92,52 +95,53 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-Installation `dcat-admin`
+安装`dcat-admin`
 
 
 ```
-cd {ProjectName}
+cd {项目名称}
 
 composer require dcat/laravel-admin
 ```
 
-Then run the following command to publish the resource:
+然后运行下面的命令来发布资源：
 
 ```
 php artisan admin:publish
 ```
 
-The command will generate the configuration file `config/admin.php`, in which you can modify the installation address, database connection, and table name. It is recommended that all the default configuration is not modified.
+在该命令会生成配置文件`config/admin.php`，可以在里面修改安装的地址、数据库连接、以及表名，建议都是用默认配置不修改。
 
-Then run the following command to complete the installation:
+然后运行下面的命令完成安装：
+
+> 执行这一步命令可能会报以下错误`Specified key was too long ... 767 bytes`，如果出现这个报错，请在`app/Providers/AppServiceProvider.php`文件的`boot`方法中加上代码`\Schema::defaultStringLength(191);`，然后删除掉数据库中的所有数据表，再重新运行一遍`php artisan admin:install`命令即可。
 
 ```
 php artisan admin:install
 ```
 
-After the above steps are completed, you can configure the webserver, ** Note that you need to point the document root to the `public` directory**! If you are using `nginx`, you also need to add a pseudo-static configuration to the configuration.
-
+上述步骤操作完成之后就可以配置`web`服务了，**注意需要把`web`目录指向`public`目录**！如果用的是`nginx`，还需要在配置中加上伪静态配置
 ```dotenv
 location / {
 	try_files $uri $uri/ /index.php?$query_string;
 }
 ```
 
-After starting the service, open `http://localhost/admin` in your browser and log in with the username `admin` and password `admin`.
+启动服务后，在浏览器打开 `http://localhost/admin`，使用用户名 `admin` 和密码 `admin`登陆。
 
 
 <a name="extensions"></a>
-## Extensions
+### 扩展
 
-| Extension                                       | Description                             | dcat-admin Version                           |
+| 扩展                                        | 描述                              | dcat-admin 版本                             |
 | ------------------------------------------------ | ---------------------------------------- |---------------------------------------- |
 | [dcat-page](https://github.com/jqhph/dcat-page)    | 简洁的静态站点构建工具 | * |
 | [ueditor](https://github.com/jqhph/dcat-admin-ueditor) | 百度在线编辑器     | * |
 | [grid-sortable](https://github.com/jqhph/dcat-admin-grid-sortable) | 表格拖曳排序工具      | * |
 
 
-## Thanks
-`Dcat Admin` is based on the following components:
+### 鸣谢
+`Dcat Admin` 基于以下组件:
 
 + [Laravel](https://laravel.com/)
 + [Laravel Admin](https://www.laravel-admin.org/)
@@ -161,9 +165,9 @@ After starting the service, open `http://localhost/admin` in your browser and lo
 + [Google map](https://www.google.com/maps)
 + [Tencent map](http://lbs.qq.com/)
 
-## Contributors
+### Contributors
 
-### Code Contributors
+#### Code Contributors
 
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
 <a href="https://github.com/jqhph/dcat-admin/graphs/contributors"><img src="https://opencollective.com/dcat-admin/contributors.svg?width=890&button=false" /></a>
@@ -191,6 +195,6 @@ Support this project with your organization. Your logo will show up here with a 
 <a href="https://opencollective.com/dcat-admin/organization/8/website"><img src="https://opencollective.com/dcat-admin/organization/8/avatar.svg"></a>
 <a href="https://opencollective.com/dcat-admin/organization/9/website"><img src="https://opencollective.com/dcat-admin/organization/9/avatar.svg"></a>
 
-## License
+### License
 ------------
 `dcat-admin` is licensed under [The MIT License (MIT)](LICENSE).

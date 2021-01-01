@@ -1,7 +1,7 @@
 
 @include('admin::scripts.select')
 
-<script require="@select2" init="{!! $selector !!}">
+<script require="@select2?lang={{ config('app.locale') === 'en' ? '' : str_replace('_', '-', config('app.locale')) }}" init="{!! $selector !!}">
     var configs = {!! admin_javascript_json($configs) !!};
 
     @yield('admin.select-ajax')
@@ -25,6 +25,8 @@
     @else
     $this.select2(configs);
     @endif
+
+    {!! $cascadeScript !!}
 </script>
 
 @if(isset($loads))
@@ -44,7 +46,7 @@
                         d.text = d.{{ $loads['textField'] }};
                         return d;
                     })
-                }).val(target.data('value').split(',')).trigger('change');
+                }).val(String(target.data('value')).split(',')).trigger('change');
             });
         };
 
@@ -59,7 +61,7 @@
                 if (_this.value !== '0' && ! _this.value) {
                     return;
                 }
-                promises.push(refreshOptions(urls[index] + "?q="+ _this.value, target));
+                promises.push(refreshOptions(urls[index] + (urls[index].match(/\?/)?'&':'?') + "q="+ _this.value, target));
             });
 
             $.when(promises).then(function() {});
@@ -69,6 +71,3 @@
 @endif
 
 @yield('admin.select-load')
-
-{{--本地化--}}
-@yield('admin.select-lang')

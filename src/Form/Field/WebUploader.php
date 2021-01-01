@@ -13,11 +13,6 @@ use Illuminate\Support\Str;
 trait WebUploader
 {
     /**
-     * @var array
-     */
-    protected $options = [];
-
-    /**
      * @param string      $extensions exp. gif,jpg,jpeg,bmp,png
      * @param string|null $mimeTypes  exp. image/*
      *
@@ -124,7 +119,7 @@ trait WebUploader
      *
      * @return $this
      */
-    public function removeable(bool $value = true)
+    public function removable(bool $value = true)
     {
         $this->options['disableRemove'] = ! $value;
 
@@ -146,7 +141,7 @@ trait WebUploader
     }
 
     /**
-     * 设置上传表单数据.
+     * 设置上传表单请求参数.
      *
      * @param array $data
      *
@@ -155,6 +150,20 @@ trait WebUploader
     public function withFormData(array $data)
     {
         $this->options['formData'] = array_merge($this->options['formData'], $data);
+
+        return $this;
+    }
+
+    /**
+     * 设置删除图片请求参数.
+     *
+     * @param array $data
+     *
+     * @return $this
+     */
+    public function withDeleteData(array $data)
+    {
+        $this->options['deleteData'] = array_merge($this->options['deleteData'], $data);
 
         return $this;
     }
@@ -192,8 +201,10 @@ trait WebUploader
      *
      * @return void
      */
-    protected function setupDefaultOptions()
+    protected function setUpDefaultOptions()
     {
+        $key = optional($this->form)->getKey();
+
         $defaultOptions = [
             'name'                => WebUploaderHelper::FILE_NAME,
             'fileVal'             => WebUploaderHelper::FILE_NAME,
@@ -211,11 +222,13 @@ trait WebUploader
 
             'deleteData' => [
                 static::FILE_DELETE_FLAG => '',
+                'primary_key'            => $key,
             ],
             'formData' => [
                 '_id'           => Str::random(),
                 '_token'        => csrf_token(),
                 'upload_column' => $this->column(),
+                'primary_key'   => $key,
             ],
         ];
 

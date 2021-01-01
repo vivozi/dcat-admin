@@ -33,12 +33,12 @@ class UserController extends AdminController
                 $nodes = (new $permissionModel())->allNodes();
                 $grid->column('permissions')
                     ->if(function () {
-                        return ! empty($this->roles);
+                        return ! $this->roles->isEmpty();
                     })
                     ->showTreeInDialog(function (Grid\Displayers\DialogTree $tree) use (&$nodes, $roleModel) {
                         $tree->nodes($nodes);
 
-                        foreach (array_column($this->roles, 'slug') as $slug) {
+                        foreach (array_column($this->roles->toArray(), 'slug') as $slug) {
                             if ($roleModel::isAdministrator($slug)) {
                                 $tree->checkAll();
                             }
@@ -84,7 +84,7 @@ class UserController extends AdminController
                 })->label();
 
                 $show->field('permissions')->unescape()->as(function () {
-                    $roles = (array) $this->roles;
+                    $roles = $this->roles->toArray();
 
                     $permissionModel = config('admin.database.permissions_model');
                     $roleModel = config('admin.database.roles_model');

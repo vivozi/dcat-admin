@@ -108,32 +108,38 @@ export default class Dcat {
         let self = this,
             clear = function () {
                 if (initialized[selector]) {
-                    initialized[selector].takeRecords();
                     initialized[selector].disconnect();
                 }
             };
 
-        self.onPjaxComplete(clear, true);
-        $document.one('pjax:responded', clear);
+        $document.one('pjax:complete', clear);
+        $document.one('init:off', clear);
 
         clear();
 
-        initialized[selector] = $.initialize(selector, function () {
-            var $this = $(this);
-            if ($this.attr('initialized')) {
-                return;
-            }
-            $this.attr('initialized', '1');
+        setTimeout(function () {
+            initialized[selector] = $.initialize(selector, function () {
+                let $this = $(this),
+                    id = $this.attr('id');
 
-            // 如果没有ID，则自动生成
-            var id = $this.attr('id');
-            if (! id) {
-                id = "_"+self.helpers.random();
-                $this.attr('id', id);
-            }
+                if ($this.attr('initialized')) {
+                    return;
+                }
+                $this.attr('initialized', '1');
 
-            callback.call(this, $(this), id)
-        }, options);
+                // 如果没有ID，则自动生成
+                if (! id) {
+                    id = "_"+self.helpers.random();
+                    $this.attr('id', id);
+                }
+
+                callback.call(this, $this, id)
+            }, options);
+        });
+    }
+
+    offInit() {
+        $(document).trigger('init:off')
     }
 
     /**
