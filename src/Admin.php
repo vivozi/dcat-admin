@@ -458,11 +458,25 @@ class Admin
         $jsVariables['token'] = csrf_token();
         $jsVariables['lang'] = __('admin.client') ?: [];
         $jsVariables['colors'] = static::color()->all();
-        $jsVariables['dark_mode'] = Str::contains(config('admin.layout.body_class'), 'dark-mode');
+        $jsVariables['dark_mode'] = static::isDarkMode();
         $jsVariables['sidebar_dark'] = config('admin.layout.sidebar_dark') || ($sidebarStyle === 'dark');
         $jsVariables['sidebar_light_style'] = in_array($sidebarStyle, ['dark', 'light'], true) ? 'sidebar-light-primary' : 'sidebar-primary';
 
         return admin_javascript_json($jsVariables);
+    }
+
+    /**
+     * @return bool
+     */
+    public static function isDarkMode()
+    {
+        $bodyClass = config('admin.layout.body_class');
+
+        return in_array(
+            'dark-mode',
+            is_array($bodyClass) ? $bodyClass : explode(' ', $bodyClass),
+            true
+        );
     }
 
     /**
@@ -473,10 +487,8 @@ class Admin
     public static function routes()
     {
         $attributes = [
-            'domain'     => config('admin.route.domain'),
             'prefix'     => config('admin.route.prefix'),
             'middleware' => config('admin.route.middleware'),
-            'as'         => static::app()->getName().'.',
         ];
 
         if (config('admin.auth.enable', true)) {
@@ -511,18 +523,15 @@ class Admin
     /**
      * 注册api路由.
      *
-     * @param string $as
-     *
      * @return void
      */
-    public static function registerApiRoutes(string $as = null)
+    public static function registerApiRoutes()
     {
         $attributes = [
-            'domain'     => config('admin.route.domain'),
             'prefix'     => admin_base_path('dcat-api'),
             'middleware' => config('admin.route.middleware'),
-            'as'         => $as ?: static::app()->getApiRoutePrefix(Application::DEFAULT),
             'namespace'  => 'Dcat\Admin\Http\Controllers',
+            'as'         => 'dcat-api.',
         ];
 
         app('router')->group($attributes, function ($router) {
@@ -550,10 +559,8 @@ class Admin
         }
 
         $attributes = [
-            'domain'     => config('admin.route.domain'),
             'prefix'     => config('admin.route.prefix'),
             'middleware' => config('admin.route.middleware'),
-            'as'         => static::app()->getName().'.',
         ];
 
         app('router')->group($attributes, function ($router) {
