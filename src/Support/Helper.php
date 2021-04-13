@@ -34,6 +34,8 @@ class Helper
         'video'      => 'mkv|rmvb|flv|mp4|avi|wmv|rm|asf|mpeg',
     ];
 
+    protected static $controllerNames = [];
+
     /**
      * 把给定的值转化为数组.
      *
@@ -44,7 +46,7 @@ class Helper
      */
     public static function array($value, bool $filter = true): array
     {
-        if (! $value) {
+        if ($value === null || $value === '' || $value === []) {
             return [];
         }
 
@@ -109,6 +111,30 @@ class Helper
         }
 
         return (string) $value;
+    }
+
+    /**
+     * 获取当前控制器名称.
+     *
+     * @return mixed|string
+     */
+    public static function getControllerName()
+    {
+        $router = app('router');
+
+        if (! $router->current()) {
+            return 'undefined';
+        }
+
+        $actionName = $router->current()->getActionName();
+
+        if (! isset(static::$controllerNames[$actionName])) {
+            $controller = class_basename(explode('@', $actionName)[0]);
+
+            static::$controllerNames[$actionName] = str_replace('Controller', '', $controller);
+        }
+
+        return static::$controllerNames[$actionName];
     }
 
     /**
@@ -391,13 +417,14 @@ class Helper
      *
      * @param array $array
      * @param mixed $value
+     * @param bool $strict
      */
-    public static function deleteByValue(&$array, $value)
+    public static function deleteByValue(&$array, $value, bool $strict = false)
     {
         $value = (array) $value;
 
         foreach ($array as $index => $item) {
-            if (in_array($item, $value)) {
+            if (in_array($item, $value, $strict)) {
                 unset($array[$index]);
             }
         }
@@ -817,6 +844,9 @@ class Helper
      */
     public static function htmlEntityEncode($item)
     {
+        if (is_object($item)) {
+            return $item;
+        }
         if (is_array($item)) {
             array_walk_recursive($item, function (&$value) {
                 $value = htmlentities($value);

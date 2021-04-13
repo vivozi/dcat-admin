@@ -46,6 +46,7 @@ class AdminServiceProvider extends ServiceProvider
         Console\ExtensionEnableCommand::class,
         Console\ExtensionDiableCommand::class,
         Console\ExtensionUpdateCommand::class,
+        Console\UpdateCommand::class,
     ];
 
     /**
@@ -211,7 +212,7 @@ class AdminServiceProvider extends ServiceProvider
         }, true);
     }
 
-    protected function registerServices()
+    public function registerServices()
     {
         $this->app->singleton('admin.app', Application::class);
         $this->app->singleton('admin.asset', Asset::class);
@@ -234,12 +235,12 @@ class AdminServiceProvider extends ServiceProvider
         $this->app->singleton(ExceptionHandler::class, config('admin.exception_handler') ?: Handler::class);
     }
 
-    protected function registerExtensions()
+    public function registerExtensions()
     {
         Admin::extension()->register();
     }
 
-    protected function bootExtensions()
+    public function bootExtensions()
     {
         Admin::extension()->boot();
     }

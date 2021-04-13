@@ -161,6 +161,13 @@ return [
         |--------------------------------------------------------------------------
         */
         'grid_action_class' => Dcat\Admin\Grid\Displayers\DropdownActions::class,
+
+        'column_selector' => [
+            'store' => Dcat\Admin\Grid\ColumnSelector\SessionStore::class,
+            'store_params' => [
+                'driver' => 'file',
+            ],
+        ],
     ],
 
     /*
@@ -211,6 +218,7 @@ return [
         // Whether enable menu bind to a permission.
         'bind_permission' => true,
 
+        'default_icon' => 'feather icon-circle',
     ],
 
     /*
@@ -232,6 +240,9 @@ return [
             'image' => 'images',
             'file'  => 'files',
         ],
+
+        // Image and file access protocol http or https.
+        'domain_type' => 'default'
     ],
 
     /*
@@ -284,7 +295,10 @@ return [
         // default, blue, blue-light, green
         'color' => 'default',
 
+        // sidebar-separate
         'body_class' => [],
+
+        'horizontal_menu' => false,
 
         'sidebar_collapsed' => false,
 

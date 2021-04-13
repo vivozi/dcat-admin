@@ -41,8 +41,6 @@ class Grid
     const CREATE_MODE_DEFAULT = 'default';
     const CREATE_MODE_DIALOG = 'dialog';
 
-    const IFRAME_QUERY_NAME = '_grid_iframe_';
-
     /**
      * The grid data model instance.
      *
@@ -169,6 +167,7 @@ class Grid
         'create_mode'       => self::CREATE_MODE_DEFAULT,
         'dialog_form_area'  => ['700px', '670px'],
         'table_class'       => ['table', 'custom-data-table', 'data-table'],
+        'scrollbar_x'       => false,
     ];
 
     /**
@@ -306,6 +305,25 @@ class Grid
     public function allColumns()
     {
         return $this->allColumns;
+    }
+
+    /**
+     * 删除列.
+     *
+     * @param string|Column $column
+     *
+     * @return $this
+     */
+    public function dropColumn($column)
+    {
+        if ($column instanceof Column) {
+            $column = $column->getName();
+        }
+
+        $this->columns->offsetUnset($column);
+        $this->allColumns->offsetUnset($column);
+
+        return $this;
     }
 
     /**
@@ -911,6 +929,31 @@ HTML;
         $this->show = $value;
 
         return $this;
+    }
+
+    /**
+     * 是否显示横向滚动条.
+     *
+     * @param bool $value
+     *
+     * @return $this
+     */
+    public function scrollbarX(bool $value = true)
+    {
+        $this->options['scrollbar_x'] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function formatTableParentClass()
+    {
+        $tableCollaps = $this->option('table_collapse') ? 'table-collapse' : '';
+        $scrollbarX = $this->option('scrollbar_x') ? 'table-scrollbar-x' : '';
+
+        return "table-responsive table-wrapper complex-container table-middle mt-1 {$tableCollaps} {$scrollbarX}";
     }
 
     /**

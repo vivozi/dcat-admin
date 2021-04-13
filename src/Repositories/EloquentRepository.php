@@ -8,6 +8,7 @@ use Dcat\Admin\Exception\RuntimeException;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
+use Dcat\Laravel\Database\SoftDeletes as DcatSoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\Relations;
@@ -80,8 +81,11 @@ class EloquentRepository extends Repository implements TreeRepository
 
         $this->setKeyName($this->model()->getKeyName());
 
+        $traits = class_uses($this->model());
+
         $this->setIsSoftDeletes(
-            in_array(SoftDeletes::class, class_uses($this->model()))
+            in_array(SoftDeletes::class, $traits, true)
+            || in_array(DcatSoftDeletes::class, $traits, true)
         );
     }
 
@@ -307,22 +311,18 @@ class EloquentRepository extends Repository implements TreeRepository
     {
         [$relationName, $relationColumn] = explode('.', $column, 2);
 
-        if ($model->getQueries()->contains(function ($query) use ($relationName) {
-            return $query['method'] == 'with' && in_array($relationName, $query['arguments']);
-        })) {
-            $relation = $this->model()->$relationName();
+        $relation = $this->model()->$relationName();
 
-            $model->addQuery('select', [$this->model()->getTable().'.*']);
+        $model->addQuery('select', [$this->model()->getTable().'.*']);
 
-            $model->addQuery('join', $this->joinParameters($relation));
+        $model->addQuery('join', $this->joinParameters($relation));
 
-            $this->setOrderBy(
-                $model,
-                $relation->getRelated()->getTable().'.'.str_replace('.', '->', $relationColumn),
-                $type,
-                $cast
-            );
-        }
+        $this->setOrderBy(
+            $model,
+            $relation->getRelated()->getTable().'.'.str_replace('.', '->', $relationColumn),
+            $type,
+            $cast
+        );
     }
 
     /**
