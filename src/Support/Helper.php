@@ -2,7 +2,6 @@
 
 namespace Dcat\Admin\Support;
 
-use Dcat\Admin\Admin;
 use Dcat\Admin\Grid;
 use Dcat\Laravel\Database\WhereHasInServiceProvider;
 use Illuminate\Contracts\Support\Arrayable;
@@ -96,10 +95,6 @@ class Helper
             $newThis && ($value = $value->bindTo($newThis));
 
             $value = $value(...(array) $params);
-        }
-
-        if ($value instanceof Grid) {
-            return (string) $value->render();
         }
 
         if ($value instanceof Renderable) {
@@ -971,5 +966,20 @@ class Helper
         }
 
         return last(explode('/', $name));
+    }
+
+    /**
+     * @param string|int $key
+     * @param array|object $arrayOrObject
+     *
+     * @return bool
+     */
+    public static function keyExists($key, $arrayOrObject)
+    {
+        if (is_object($arrayOrObject)) {
+            $arrayOrObject = static::array($arrayOrObject, false);
+        }
+
+        return array_key_exists($key, $arrayOrObject);
     }
 }
