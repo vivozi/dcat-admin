@@ -71,7 +71,7 @@
 
 First you need to install `laravel` framework, you can skip this step if it is already installed. If you are using `laravel` for the first time, please make sure to read the documentation first [Installation `Laravel Documentation`].(https://laravel.com/docs/9.x/) ！
 ```bash
-composer create-project --prefer-dist laravel/laravel ProjectName 7.*
+composer create-project --prefer-dist laravel/laravel ProjectName 9.*
 # or
 composer create-project --prefer-dist laravel/laravel ProjectName
 ```
